@@ -1,68 +1,162 @@
-{% extends "base.html" %}
-{% block title %}{{ p.name }} سبحة اونلاين الالكترونية{% endblock %}
-{% block meta %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ p.name }} سبحة اونلاين الالكترونية</title>
 <meta name="description" content="صدقة جارية عن روح المرحوم/ة بإذن الله {{ p.name }}">
 <meta property="og:title" content="{{ p.name }} سبحة اونلاين الالكترونية">
 <meta property="og:description" content="صدقة جارية عن روح المرحوم/ة بإذن الله {{ p.name }}">
 <style>
-.total{text-align:center;font-size:18px;color:var(--mute)}.total b{display:block;font-size:46px;color:var(--g1);line-height:1.2}
-.row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.dk{background:var(--g3);border:2px solid var(--line);border-radius:16px;padding:12px 4px;text-align:center;cursor:pointer;color:var(--ink);font:inherit;font-size:18px}
-.dk b{display:block;font-size:26px;color:var(--g1)}.dk.on{border-color:var(--g1);background:var(--g1);color:#fff}.dk.on b{color:#fff}
-.bar{height:10px;background:var(--g3);border-radius:8px;overflow:hidden;margin-top:14px}.bar i{display:block;height:100%;width:0;background:var(--g1);transition:width .15s}
-.big{display:block;margin:16px auto 0;width:190px;height:190px;border-radius:50%;border:8px solid var(--g3);background:linear-gradient(145deg,var(--g2),var(--g1));color:#fff;font:inherit;font-size:22px;cursor:pointer;box-shadow:0 8px 20px rgba(27,122,61,.35)}
-.big:active{transform:scale(.97)}.big span{display:block;font-size:46px;line-height:1.1}
-.msg{text-align:center;color:var(--g1);min-height:28px;margin-top:10px}
-.dua{font-size:19px;text-align:justify}.by{text-align:center;color:var(--mute);font-size:16px}.by strong{display:block;color:var(--ink);font-size:19px}
-.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.btns .btn{flex:1 1 140px;text-align:center}
-.vis{text-align:center;color:var(--mute);margin-top:8px}
+:root{--g:#1b7a3d;--g2:#2e9e57;--gl:#e3f3e8;--ink:#212529;--mut:#6c757d}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font-family:"Segoe UI","Noto Naskh Arabic",Tahoma,Arial,sans-serif;line-height:1.7;text-align:center}
+a{color:var(--g);text-decoration:none}
+.top{position:relative;padding:14px 56px 4px}
+.menu{position:absolute;left:0;top:8px;border:1px solid var(--g);color:var(--g);background:#fff;border-radius:4px;font-size:20px;width:48px;height:46px;cursor:pointer}
+.wa-top{position:absolute;right:8px;top:8px;width:46px;height:46px;border-radius:50%;background:#25d366;color:#fff;font-size:24px;line-height:46px;text-decoration:none}
+h1{font-size:21px;margin:6px 0}
+.sub{font-size:19px;margin:12px 0 4px}
+.send{font-size:14px;color:var(--g)}
+.num{font-size:58px;color:var(--g);line-height:1.2;margin-top:18px}
+.meta{position:relative;max-width:840px;margin:0 auto;height:34px}
+.meta .tot{position:absolute;right:0;top:0;color:var(--g)}
+.meta .rd{position:absolute;left:calc(50% - 365px);top:-8px;background:#e8294f;color:#fff;border-radius:50%;width:38px;height:38px;line-height:38px;font-size:16px}
+@media(max-width:700px){.meta .rd{left:12px}.meta .tot{right:12px}}
+.big{display:block;margin:6px auto 0;width:min(78vw,375px);height:min(78vw,375px);border-radius:50%;border:0;background:var(--g);color:#fff;font:inherit;font-size:clamp(40px,12vw,64px);cursor:pointer;box-shadow:0 6px 22px rgba(27,122,61,.28);-webkit-tap-highlight-color:transparent;user-select:none}
+.big:active{transform:scale(.985);background:#17692f}
+.bars{max-width:840px;margin:6px auto 0;padding:0 12px}
+.bar{position:relative;height:25px;background:#e9ecef;border-radius:5px;margin-bottom:4px;overflow:hidden;cursor:pointer;text-align:right}
+.bar i{position:absolute;right:0;top:0;bottom:0;width:0;background:var(--g2);opacity:.85;transition:width .15s}
+.bar span{position:relative;z-index:1;padding:0 6px;font-size:13px;color:#555}
+.bar.on span{color:#000;font-weight:700}
+.cnt{font-size:14px;margin:4px 0 8px;color:#444}
+.pill{display:block;margin:8px 0;padding:10px;border-radius:30px;color:#fff;font-size:21px;border:0;width:100%;font-family:inherit;cursor:pointer}
+.pill.wa{background:#3f8a56}.pill.sh{background:var(--g)}
+.sm{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 8px}
+.sm a,.sm button{padding:5px 12px;border-radius:5px;background:var(--g);color:#fff;border:0;font:inherit;font-size:15px;cursor:pointer}
+.sm .cp{background:#4aa564}.sm .ic{border-radius:50%;width:40px;height:40px;padding:0;line-height:40px;background:var(--g2)}
+h2{font-size:32px;font-weight:500;margin:26px 0 10px}
+.vid{position:relative;width:min(92vw,360px);aspect-ratio:9/16;margin:6px auto 16px;border-radius:10px;overflow:hidden;background:#000}.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.dua{max-width:700px;margin:0 auto;padding:0 16px;font-size:19px;text-align:justify}
+.ban{background:var(--gl);color:#0f5a2a;padding:18px;margin-top:26px;font-size:20px;font-weight:700;border-top:1px solid #cfe7d6;border-bottom:1px solid #cfe7d6}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:34px;max-width:1000px;margin:30px auto;padding:0 20px}
+.cd{display:block;background:#fff;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.14);overflow:hidden;color:#555}
+.cd .hd{height:130px;display:flex;align-items:center;justify-content:center;font-size:44px;font-family:"Amiri","Noto Naskh Arabic",serif;color:#3d2a12}
+.cd .tx{padding:18px 12px;font-weight:700;font-size:16px;min-height:76px}
+.by{background:var(--gl);margin:10px auto 0;max-width:640px;border-radius:14px;padding:14px;font-size:15px;color:#2d4a37}
+.by strong{display:block;font-size:19px;color:var(--ink)}
+footer{background:#5f7266;color:#fff;margin-top:34px;padding:22px 16px 30px}
+.fc{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;max-width:1000px;margin:14px auto 0;text-align:right}
+.fc h3{margin:0 0 8px;font-size:19px}.fc a{display:block;color:#fff;padding:3px 0;font-size:15px}
+.soc{font-size:22px;letter-spacing:12px}
+.drawer{position:fixed;inset:0 auto 0 0;width:260px;background:#fff;box-shadow:4px 0 20px rgba(0,0,0,.25);transform:translateX(-110%);transition:transform .2s;z-index:20;text-align:right;padding:16px}
+.drawer.open{transform:none}.drawer a{display:block;padding:9px 4px;border-bottom:1px solid #eee}
+.mask{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;z-index:15}.mask.open{display:block}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:30}
+.modal.open{display:flex}.modal div{background:#fff;border-radius:14px;padding:22px;max-width:320px;width:88%}
+.modal h3{color:var(--g);margin:0 0 8px}.modal button{margin-top:12px;background:var(--g);color:#fff;border:0;border-radius:8px;padding:9px 18px;font:inherit;font-size:17px;cursor:pointer}
 </style>
-{% endblock %}
-{% block body %}
-<header><h1>{{ p.name }}</h1><p>اللهم هب ثواب هذا العمل إلى {{ 'المرحومة' if p.gender=='f' else 'المرحوم' }} {{ p.name }}</p></header>
-<div class="card">
-<div class="total">مجموع التسابيح<b id="total">{{ p.c0+p.c1+p.c2 }}</b></div>
-<div class="vis">عدد المسبّحين: <span id="vis">{{ p.visitors }}</span></div>
-<div class="row" id="row"></div>
-<div class="bar"><i id="bar"></i></div>
-<button class="big" id="tap"><span id="cur">0</span><em style="font-style:normal" id="curName"></em></button>
-<div class="msg" id="msg"></div>
+</head>
+<body>
+<div class="top">
+<button class="menu" id="menuBtn" aria-label="القائمة">☰</button>
+<a class="wa-top" id="waTop" target="_blank" rel="noopener" aria-label="واتساب">&#9993;</a>
+<h1>{{ p.name }}</h1>
+<div class="sub">اللهم هب ثواب هذا العمل إلى {{ 'المرحومة' if p.gender=='f' else 'المرحوم' }} {{ p.name }}</div>
+<a class="send" id="waLink" target="_blank" rel="noopener">أرسلها لكسب الصدقة على تطبيق الوتساب</a>
 </div>
-<div class="card"><h2>أفضل الدعاء للميت</h2><p class="dua">{{ dua }}</p>
-<div class="btns"><a class="btn" id="wa" target="_blank" rel="noopener">أرسلها لكسب الصدقة (واتساب)</a><button class="btn alt" id="copy">نسخ الرابط</button></div></div>
-{% if p.creator %}<div class="card by">أُنشئت هذه الصدقة الجارية بواسطة<strong>{{ p.creator }}</strong>{{ p.affiliation or '' }}</div>{% endif %}
+
+<div class="num" id="num">0</div>
+<div class="meta"><span class="tot">مجموع تسابيح : <span id="mytot">0</span></span><span class="rd" id="rounds" title="عدد الدورات المكتملة">0</span></div>
+<button class="big" id="tap"><span id="name">سبحان الله</span></button>
+<div class="bars" id="bars"></div>
+<div class="cnt">عدد المسبحين : <b id="vis">{{ p.visitors }}</b> &nbsp;|&nbsp; مجموع تسابيح الجميع : <b id="all">{{ p.c0+p.c1+p.c2 }}</b></div>
+
+<a class="pill wa" id="waPill" target="_blank" rel="noopener">انشرها ولك الأجر</a>
+<button class="pill sh" id="shareBtn">مشاركة</button>
+<div class="sm">
+<a id="fb" target="_blank" rel="noopener">شارك على فيس بوك</a>
+<button class="cp" id="copy">نسخ الرابط</button>
+<a class="ic" id="tg" target="_blank" rel="noopener" aria-label="تيليجرام">&#10148;</a>
+</div>
+
+<h2 id="dua">دعاء لموتى المسلمين</h2>
+<div class="vid"><iframe src="https://www.youtube.com/embed/zIGzdWc6OJk" title="دعاء لموتى المسلمين" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+<p class="dua">{{ dua }}</p>
+
+<div class="ban"><a href="{{ url_for('new') }}">&#9758; أنشئ صدقة جارية لمتوفى — صفحة خاصة برابط يُشارَك</a></div>
+
+<div class="cards">
+{% set cards = [
+ ('سورة يس','#fff7e4','اهداء ثواب قراءة سورة يس للمتوفى ' ~ p.name,'https://quran.com/36'),
+ ('&#127760;','#f8e9e9','انشئ صدقة جارية للمتوفى',url_for('new')),
+ ('سورة الفاتحة','#ebe6f8','اهداء ثواب قراءة سورة الفاتحة للمتوفى ' ~ p.name,'https://quran.com/1'),
+ ('سورة الملك','#ebe6f8','اهداء ثواب قراءة سورة الملك للمتوفى ' ~ p.name,'https://quran.com/67'),
+ ('دعاء للمتوفى','#fbe7e9','دعاء للمتوفى ' ~ p.name,'#dua'),
+ ('&#128716;','#f7efe7','انشئ مسبحة للمتوفى',url_for('new')),
+ ('ختمة','#d6eadd','إنشاء ختمة قرآن ' ~ p.name,'https://5etme.com/new'),
+ ('استغفار','#f7efe7','إنشاء صدقة جارية للمتوفى مع صورة','https://estghfar.com/private_new')] %}
+{% for h,c,t,u in cards %}
+<a class="cd" href="{{ u }}"{% if u.startswith('http') %} target="_blank" rel="noopener"{% endif %}><div class="hd" style="background:{{ c }}">{{ h|safe }}</div><div class="tx">{{ t }}</div></a>
+{% endfor %}
+</div>
+
+{% if p.creator %}<div class="by">أُنشئت هذه الصدقة الجارية بواسطة<strong>{{ p.creator }}</strong>{{ p.affiliation or '' }}</div>{% endif %}
+
+<footer>
+<div class="soc">&#9654; &#9679; &#9679; &#9679;</div>
+<div class="fc">
+<div><h3>المسبحة الرئيسية</h3><a href="{{ url_for('index') }}">المسبحة الرئيسية</a><a href="{{ url_for('index') }}">جميع التسابيح</a></div>
+<div><h3>صدقة جارية للمتوفى</h3><a href="{{ url_for('new') }}">مسبحة للمتوفى</a><a href="{{ url_for('new') }}">إنشاء صدقة جارية</a><a href="#dua">دعاء للمتوفى مكتوب</a><a href="https://5etme.com/new" target="_blank" rel="noopener">إنشاء ختمة قرآن للمتوفى</a><a href="https://estghfar.com/new" target="_blank" rel="noopener">إنشاء استغفار للمتوفى</a></div>
+<div><h3>القرآن الكريم</h3><a href="https://quran.com/36" target="_blank" rel="noopener">سورة يس</a><a href="https://quran.com/67" target="_blank" rel="noopener">سورة الملك</a><a href="https://quran.com/18" target="_blank" rel="noopener">سورة الكهف</a></div>
+</div>
+</footer>
+
+<div class="mask" id="mask"></div>
+<nav class="drawer" id="drawer"><a href="{{ url_for('index') }}">المسبحة الرئيسية</a><a href="{{ url_for('new') }}">إنشاء مسبحة لمتوفى</a><a href="#dua">دعاء للمتوفى</a></nav>
+<div class="modal" id="modal"><div><h3>تهاني</h3><p>أنهيت تسبيحاً عن روح {{ 'المرحومة' if p.gender=='f' else 'المرحوم' }}<br><b>{{ p.name }}</b><br>تقبّل الله منك</p><button id="again">أعد التسبيح</button></div></div>
+
 <script>
 (function(){
-var PID={{ p.id }},N=["سبحان الله","الحمد لله","الله أكبر"];
-var srv=[{{ p.c0 }},{{ p.c1 }},{{ p.c2 }}],mine=[0,0,0],pend=[0,0,0],sel=0,KEY="joined-"+PID;
-var row=document.getElementById("row"),els=[];
-N.forEach(function(n,i){var b=document.createElement("button");b.className="dk";b.innerHTML=n+"<b>0</b>";b.onclick=function(){sel=i;render()};row.appendChild(b);els.push(b)});
-function post(u,body,keep){return fetch(u,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body||{}),keepalive:!!keep}).then(function(r){return r.json()})}
-function apply(d){if(d&&d.c){srv=d.c;document.getElementById("vis").textContent=d.visitors;}render()}
+var PID={{ p.id }},NAME={{ p.name|tojson }},N=["سبحان الله","الحمد لله","الله أكبر"],G=33;
+var srv=[{{ p.c0 }},{{ p.c1 }},{{ p.c2 }}],pend=[0,0,0],prog=[0,0,0],sel=0,tot=0,rounds=0;
+var KEY="mine-"+PID,JK="joined-"+PID;
+try{var s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){tot=+s.tot||0;rounds=+s.rounds||0}}catch(e){}
+function $(i){return document.getElementById(i)}
+var bars=$("bars"),be=[];
+N.slice().reverse().forEach(function(n,k){var i=2-k;var d=document.createElement("div");d.className="bar";d.innerHTML="<i></i><span>"+n+"</span>";d.onclick=function(){sel=i;render()};bars.appendChild(d);be[i]=d});
+function post(u,b,keep){return fetch(u,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b||{}),keepalive:!!keep}).then(function(r){return r.json()})}
+function apply(d){if(d&&d.c){srv=d.c;$("vis").textContent=d.visitors}render()}
 function render(){
- var t=0;els.forEach(function(b,i){b.className="dk"+(i===sel?" on":"");var v=srv[i]+pend[i];b.querySelector("b").textContent=v;t+=v});
- document.getElementById("total").textContent=t;
- document.getElementById("cur").textContent=mine[sel];
- document.getElementById("curName").textContent=N[sel];
- document.getElementById("bar").style.width=((mine[sel]%33)/33*100)+"%";
+ $("num").textContent=prog[sel];$("name").textContent=N[sel];$("mytot").textContent=tot;$("rounds").textContent=rounds;
+ for(var i=0;i<3;i++){be[i].className="bar"+(i===sel?" on":"");be[i].querySelector("i").style.width=(prog[i]/G*100)+"%"}
+ $("all").textContent=srv[0]+srv[1]+srv[2]+pend[0]+pend[1]+pend[2];
+ try{localStorage.setItem(KEY,JSON.stringify({tot:tot,rounds:rounds}))}catch(e){}
 }
-function flush(keep){
- for(var i=0;i<3;i++){if(pend[i]>0){var n=pend[i];pend[i]=0;(function(i,n){post("/api/"+PID+"/tap",{dhikr:i,n:n},keep).then(apply).catch(function(){pend[i]+=n})})(i,n)}}
-}
-document.getElementById("tap").onclick=function(){
- mine[sel]++;pend[sel]++;var m=document.getElementById("msg");m.textContent="";
- if(mine[sel]%33===0){m.textContent="أتممت ٣٣ — "+N[sel]+"، تقبّل الله منك";if(sel<2)sel++}
+function flush(keep){for(var i=0;i<3;i++){if(pend[i]>0){var n=pend[i];pend[i]=0;(function(i,n){post("/api/"+PID+"/tap",{dhikr:i,n:n},keep).then(apply).catch(function(){pend[i]+=n})})(i,n)}}}
+$("tap").onclick=function(){
+ prog[sel]++;pend[sel]++;tot++;
+ if(prog[sel]>=G){try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}
+  if(sel<2){sel++}else{rounds++;$("modal").className="modal open";prog=[0,0,0];sel=0}}
  render();
 };
-setInterval(flush,2000);
-window.addEventListener("pagehide",function(){flush(true)});
-setInterval(function(){fetch("/api/"+PID+"/stats").then(function(r){return r.json()}).then(function(d){if(!pend[0]&&!pend[1]&&!pend[2])apply(d)}).catch(function(){})},10000);
-var joined=false;try{joined=localStorage.getItem(KEY)}catch(e){}
-if(!joined){post("/api/"+PID+"/join").then(apply).catch(function(){});try{localStorage.setItem(KEY,"1")}catch(e){}}
-var url=location.href;
-document.getElementById("wa").href="https://api.whatsapp.com/send?text="+encodeURIComponent("صدقة جارية عن {{ p.name|e }} — شاركوا بالتسبيح والدعاء: "+url);
-document.getElementById("copy").onclick=function(){var m=document.getElementById("msg");try{navigator.clipboard.writeText(url).then(function(){m.textContent="تم نسخ الرابط"})}catch(e){m.textContent="انسخ الرابط من شريط العنوان"}};
+$("again").onclick=function(){$("modal").className="modal"};
+setInterval(flush,2000);window.addEventListener("pagehide",function(){flush(true)});
+setInterval(function(){if(pend[0]||pend[1]||pend[2])return;fetch("/api/"+PID+"/stats").then(function(r){return r.json()}).then(apply).catch(function(){})},10000);
+var j=false;try{j=localStorage.getItem(JK)}catch(e){}
+if(!j){post("/api/"+PID+"/join").then(apply).catch(function(){});try{localStorage.setItem(JK,"1")}catch(e){}}
+var url=location.href,txt="صدقة جارية عن "+NAME+" — شاركوا بالتسبيح والدعاء: "+url;
+var wa="https://api.whatsapp.com/send?text="+encodeURIComponent(txt);
+$("waLink").href=wa;$("waPill").href=wa;$("waTop").href=wa;
+$("fb").href="https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(url);
+$("tg").href="https://t.me/share/url?url="+encodeURIComponent(url)+"&text="+encodeURIComponent("صدقة جارية عن "+NAME);
+$("copy").onclick=function(){var b=this;try{navigator.clipboard.writeText(url).then(function(){b.textContent="تم النسخ";setTimeout(function(){b.textContent="نسخ الرابط"},1500)})}catch(e){}};
+$("shareBtn").onclick=function(){if(navigator.share){navigator.share({title:NAME,text:"صدقة جارية عن "+NAME,url:url}).catch(function(){})}else{window.open(wa,"_blank")}};
+function dr(o){$("drawer").className="drawer"+(o?" open":"");$("mask").className="mask"+(o?" open":"")}
+$("menuBtn").onclick=function(){dr(true)};$("mask").onclick=function(){dr(false)};
 render();
 })();
 </script>
-{% endblock %}
+</body>
+</html>
