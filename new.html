@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}إنشاء مسبحة{% endblock %}
+{% block body %}
+<header><h1>إنشاء مسبحة لشخصٍ متوفى</h1></header>
+<form class="card" method="post">
+{% if error %}<p class="err">{{ error }}</p>{% endif %}
+<label>اسم المتوفى</label><input name="name" required maxlength="120" placeholder="مثال: والدة الزميلة فلانة">
+<label>المتوفى</label><select name="gender"><option value="f">مرحومة (أنثى)</option><option value="m">مرحوم (ذكر)</option></select>
+<label>أنشأها (اختياري)</label><input name="creator" maxlength="150" placeholder="د. بدر الدين أمينة — Dr. BADREDDINE Amina">
+<label>الصفة / الجهة (اختياري)</label><input name="affiliation" maxlength="250" placeholder="أستاذة محاضرة، جامعة محمد بوقرة، بومرداس">
+<button class="btn" type="submit">إنشاء</button> <a class="btn alt" href="{{ url_for('index') }}">رجوع</a>
+</form>
+{% endblock %}

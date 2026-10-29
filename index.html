@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block body %}
+<header><h1>المسبحة الإلكترونية</h1><p>أنشئ صدقة جارية لمتوفى، وشاركها ليسبّح معك الجميع</p></header>
+<div class="card"><a class="btn" href="{{ url_for('new') }}">إنشاء مسبحة لشخصٍ متوفى</a></div>
+<div class="card"><h2>أحدث المسابح</h2>
+{% for r in rows %}<p><a href="{{ url_for('tasbih', pid=r.id) }}">{{ r.name }}</a> — {{ r.total }} تسبيحة</p>{% endfor %}
+</div>
+{% endblock %}
